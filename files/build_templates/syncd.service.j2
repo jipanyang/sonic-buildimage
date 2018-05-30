@@ -19,6 +19,12 @@ User=root
 ExecStartPre=/bin/bash -c 'until [[ $(/usr/bin/docker exec database redis-cli ping | grep -c PONG) -gt 0 ]]; do sleep 1; done'
 ExecStartPre=/usr/bin/docker exec database redis-cli -n 1 FLUSHDB
 
+ExecStartPre=/usr/bin/docker exec database redis-cli -n 0 FLUSHDB
+ExecStartPre=/usr/bin/docker exec database redis-cli -n 2 FLUSHDB
+ExecStartPre=/usr/bin/docker exec database redis-cli -n 5 FLUSHDB
+ExecStartPre=/usr/bin/docker exec database redis-cli -n 6 FLUSHDB
+ExecStartPre=/usr/bin/docker exec database redis-cli -n 7 FLUSHDB
+
 {% if sonic_asic_platform == 'mellanox' %}
 Environment=FAST_BOOT=1
 TimeoutStartSec=3min
