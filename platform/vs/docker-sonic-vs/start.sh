@@ -26,6 +26,8 @@ mkdir -p /var/run/redis
 
 supervisorctl start redis-server
 
+/usr/bin/redis-cli flushall
+
 /usr/bin/configdb-load.sh
 
 supervisorctl start syncd
