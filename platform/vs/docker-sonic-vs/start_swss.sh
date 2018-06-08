@@ -16,8 +16,6 @@ supervisorctl start vlanmgrd
 
 supervisorctl start buffermgrd
 
-# Start arp_update when VLAN exists
-VLAN=`sonic-cfggen -d -v 'VLAN.keys() | join(" ") if VLAN'`
-if [ "$VLAN" != "" ]; then
-    supervisorctl start arp_update
-fi
+# always start arp_update, VLAN may be created later
+supervisorctl start arp_update
+
