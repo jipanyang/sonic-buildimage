@@ -75,7 +75,7 @@ RUN sed -ri 's/^(save .*$)/# \1/g;                                              
             ' /etc/redis/redis.conf
 
 COPY ["50-default.conf", "/etc/rsyslog.d/"]
-COPY ["start.sh", "orchagent.sh", "/usr/bin/"]
+COPY ["start.sh", "orchagent.sh", "syncd.sh", "start_swss.sh", "stop_swss.sh", "/usr/bin/"]
 COPY ["brcm.profile.ini", "/usr/share/sonic/device/vswitch/"]
 COPY ["buffers.json.j2", "/usr/share/sonic/device/vswitch/"]
 COPY ["pg_profile_lookup.ini", "/usr/share/sonic/device/vswitch/"]
