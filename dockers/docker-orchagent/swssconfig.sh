@@ -41,6 +41,12 @@ fast_reboot
 
 HWSKU=`sonic-cfggen -d -v "DEVICE_METADATA['localhost']['hwsku']"`
 
+# Don't load json config for warm start
+WARM_START=`redis-cli -n 6 hget "WARM_RESTART_TABLE|orchagent" restart_count`
+if [ -n "$WARM_START" ] && [ "$WARM_START" != "0" ]; then
+  exit 0
+fi
+
 SWSSCONFIG_ARGS="00-copp.config.json ipinip.json ports.json switch.json "
 
 for file in $SWSSCONFIG_ARGS; do
