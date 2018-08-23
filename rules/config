@@ -24,7 +24,7 @@ SONIC_CONFIG_MAKE_JOBS = $(shell nproc)
 DEFAULT_USERNAME = admin
 
 # DEFAULT_PASSWORD - default password for installer build
-DEFAULT_PASSWORD = YourPaSsWoRd
+DEFAULT_PASSWORD = admin
 
 # ENABLE_DHCP_GRAPH_SERVICE - specify the source of minigraph to generate configuration file.
 # If set to y SONiC will get the minigraph from graph service. Graph service URL need to be
@@ -42,7 +42,7 @@ DEFAULT_PASSWORD = YourPaSsWoRd
 
 # SONIC_INSTALL_DEBUG_TOOLS - installs debugging tools in baseline docker
 # Uncomment next line to enable:
-# SONIC_INSTALL_DEBUG_TOOLS = y
+SONIC_INSTALL_DEBUG_TOOLS = y
 
 # SONIC_ROUTING_STACK - specify the routing-stack being elected to drive SONiC's control-plane.
 # Quagga will be the default routing-stack for all the SONiC platforms. Other supported
@@ -61,11 +61,11 @@ ENABLE_ORGANIZATION_EXTENSIONS = y
 # as includes symbols information. Given that 'profiling' option is a superset
 # of 'debugging' one, user should only enable either one option or the other --
 # if both options are enabled, the 'profiling' one will prevail.
-#SONIC_DEBUGGING_ON = y
+SONIC_DEBUGGING_ON = y
 #SONIC_PROFILING_ON = y
 
 # ENABLE_SYSTEM_TELEMETRY - build docker-sonic-telemetry for system telemetry support
-# ENABLE_SYSTEM_TELEMETRY = y
+ENABLE_SYSTEM_TELEMETRY = y
 
 # DEFAULT_KERNEL_PROCURE_METHOD - default method for obtaining kernel
 #   build:    build kernel from source
