@@ -18,7 +18,7 @@ start() {
     if [[ "$SYSTEM_WARM_START" == "true" ]] || [[ "$SWSS_WARM_START" == "true" ]]; then
       RESTART_COUNT=`redis-cli -n 6 hget "WARM_RESTART_TABLE|orchagent" restart_count`
       # We have to make sure db data has not been flushed.
-      if [[ -n "$RESTART_COUNT" ]] && [[ "$RESTART_COUNT" != "0" ]]; then
+      if [[ -n "$RESTART_COUNT" ]]; then
         /usr/bin/swss.sh start
         /usr/bin/swss.sh attach
         return 0
