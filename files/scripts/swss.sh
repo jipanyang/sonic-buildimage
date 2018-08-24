@@ -31,6 +31,7 @@ start() {
     /usr/bin/docker exec database redis-cli -n 2 FLUSHDB
     /usr/bin/docker exec database redis-cli -n 5 FLUSHDB
     /usr/bin/docker exec database redis-cli -n 6 FLUSHDB
+    /usr/bin/docker exec database redis-cli -n 7 FLUSHDB
 
     # platform specific tasks
     if [ x$sonic_asic_platform == x'mellanox' ]; then
