@@ -151,14 +151,6 @@ class HostConfigDaemon:
         self.aaacfg = AaaCfg()
         self.aaacfg.load(aaa, tacacs_global, tacacs_server)
 
-
-    def __run_command(self, command):
-        p = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
-        stdout = p.communicate()[0]
-        p.wait()
-        if p.returncode != 0:
-            syslog.syslog(syslog.LOG_ERR, '[hostcfgd] command execution returned {}. Command: "{}", stdout: "{}"'.format(p.returncode, command, stdout))
-
     def aaa_handler(self, key, data):
         self.aaacfg.aaa_update(key, data)
 
@@ -176,20 +168,10 @@ class HostConfigDaemon:
             log_data['passkey'] = obfuscate(log_data['passkey'])
         syslog.syslog(syslog.LOG_DEBUG, 'value of {} changed to {}'.format(key, log_data))
 
-    def warm_restart_handler(self, key, data):
-        if key == 'swss':
-            if data.has_key('enable') and data['enable'] == 'true':
-                command = "mkdir -p /etc/sonic/warm_restart/swss"
-            else:
-                command = "rm -f -r /etc/sonic/warm_restart/swss"
-            self.__run_command(command)
-        syslog.syslog(syslog.LOG_NOTICE, '[hostcfgd] WARM_RESTART: value of {} set to {}'.format(key, data))
-
     def start(self):
         self.config_db.subscribe('AAA', lambda table, key, data: self.aaa_handler(key, data))
         self.config_db.subscribe('TACPLUS_SERVER', lambda table, key, data: self.tacacs_server_handler(key, data))
         self.config_db.subscribe('TACPLUS', lambda table, key, data: self.tacacs_global_handler(key, data))
-        self.config_db.subscribe('WARM_RESTART', lambda table, key, data: self.warm_restart_handler(key, data))
         self.config_db.listen()
 
 
