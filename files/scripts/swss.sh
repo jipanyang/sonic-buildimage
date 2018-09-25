@@ -16,7 +16,7 @@ start() {
     # if warm start enabled, just do swss docker start.
     # Don't flush DB or try to start other modules.
     if [[ "$SYSTEM_WARM_START" == "true" ]] || [[ "$SWSS_WARM_START" == "true" ]]; then
-      RESTART_COUNT=`redis-cli -n 6 hget "WARM_RESTART_TABLE|orchagent" restart_count`
+      RESTART_COUNT=`redis-cli -n 6 hget "WARM_RESTART_TABLE|orchagent" restore_count`
       # We have to make sure db data has not been flushed.
       if [[ -n "$RESTART_COUNT" ]]; then
         /usr/bin/swss.sh start
