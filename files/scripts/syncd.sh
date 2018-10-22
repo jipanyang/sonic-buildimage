@@ -30,8 +30,9 @@ function unlock_service_state_change()
 function check_warm_boot()
 {
     SYSTEM_WARM_START=`/usr/bin/redis-cli -n 4 hget "WARM_RESTART|system" enable`
+    SERVICE_WARM_START=`/usr/bin/redis-cli -n 4 hget "WARM_RESTART|${SERVICE}" enable`
     # SYSTEM_WARM_START could be empty, always make WARM_BOOT meaningful.
-    if [[ x"$SYSTEM_WARM_START" == x"true" ]]; then
+    if [[ x"$SYSTEM_WARM_START" == x"true" ]] || [[ x"$SERVICE_WARM_START" == x"true" ]]; then
         WARM_BOOT="true"
     else
         WARM_BOOT="false"
@@ -74,7 +75,6 @@ start() {
             /usr/bin/mlnx-fw-upgrade.sh
             /etc/init.d/sxdkernel start
             /sbin/modprobe i2c-dev
-            /etc/mlnx/mlnx-hw-management start
         elif [ x$sonic_asic_platform == x'cavium' ]; then
             /etc/init.d/xpnet.sh start
         fi
@@ -115,7 +115,6 @@ stop() {
     if [[ x"$WARM_BOOT" != x"true" ]]; then
         # platform specific tasks
         if [ x$sonic_asic_platform == x'mellanox' ]; then
-            /etc/mlnx/mlnx-hw-management stop
             /etc/init.d/sxdkernel stop
             /usr/bin/mst stop
         elif [ x$sonic_asic_platform == x'cavium' ]; then

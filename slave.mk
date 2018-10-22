@@ -32,6 +32,7 @@ PROJECT_ROOT = $(shell pwd)
 CONFIGURED_PLATFORM := $(shell [ -f .platform ] && cat .platform || echo generic)
 PLATFORM_PATH = platform/$(CONFIGURED_PLATFORM)
 export BUILD_NUMBER
+export BUILD_TIMESTAMP
 export CONFIGURED_PLATFORM
 
 ###############################################################################
@@ -67,6 +68,14 @@ endif
 
 ifeq ($(SONIC_ENABLE_SYSTEM_TELEMETRY),y)
 ENABLE_SYSTEM_TELEMETRY = y
+endif
+
+ifeq ($(SONIC_ENABLE_SYNCD_RPC),y)
+ENABLE_SYNCD_RPC = y
+endif
+
+ifeq ($(SONIC_INSTALL_DEBUG_TOOLS),y)
+INSTALL_DEBUG_TOOLS = y
 endif
 
 include $(RULES_PATH)/config
@@ -123,7 +132,7 @@ $(info "PASSWORD"                        : "$(PASSWORD)")
 $(info "ENABLE_DHCP_GRAPH_SERVICE"       : "$(ENABLE_DHCP_GRAPH_SERVICE)")
 $(info "SHUTDOWN_BGP_ON_START"           : "$(SHUTDOWN_BGP_ON_START)")
 $(info "ENABLE_PFCWD_ON_START"           : "$(ENABLE_PFCWD_ON_START)")
-$(info "SONIC_INSTALL_DEBUG_TOOLS"       : "$(SONIC_INSTALL_DEBUG_TOOLS)")
+$(info "INSTALL_DEBUG_TOOLS"             : "$(INSTALL_DEBUG_TOOLS)")
 $(info "ROUTING_STACK"                   : "$(SONIC_ROUTING_STACK)")
 $(info "ENABLE_SYNCD_RPC"                : "$(ENABLE_SYNCD_RPC)")
 $(info "ENABLE_ORGANIZATION_EXTENSIONS"  : "$(ENABLE_ORGANIZATION_EXTENSIONS)")
@@ -133,6 +142,7 @@ $(info "ENABLE_SYSTEM_TELEMETRY"         : "$(ENABLE_SYSTEM_TELEMETRY)")
 $(info "SONIC_DEBUGGING_ON"              : "$(SONIC_DEBUGGING_ON)")
 $(info "SONIC_PROFILING_ON"              : "$(SONIC_PROFILING_ON)")
 $(info "KERNEL_PROCURE_METHOD"           : "$(KERNEL_PROCURE_METHOD)")
+$(info "BUILD_TIMESTAMP"                 : "$(BUILD_TIMESTAMP)")
 $(info )
 
 ###############################################################################
