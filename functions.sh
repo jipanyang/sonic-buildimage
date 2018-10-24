@@ -50,27 +50,6 @@ docker_try_rmi() {
     }
 }
 
-sonic_set_build_timestamp() {
-    local timestamp="$(date +%Y%m%d\.%H%M%S)"
-    echo "${timestamp}" > /tmp/sonic_build_timestamp
-}
-
-sonic_clear_build_timestamp() {
-    rm /tmp/sonic_build_timestamp
-}
-
-## Get build time stamp from temporary file if exists,
-## otherwise get it in real time.
-sonic_get_build_timestamp() {
-    local timestamp="invalid"
-    if [ ! -f /tmp/sonic_build_timestamp ]; then
-        timestamp="$(date +%Y%m%d\.%H%M%S)"
-    else
-        timestamp="$(cat /tmp/sonic_build_timestamp)"
-    fi
-    echo "${timestamp}"
-}
-
 sonic_get_version() {
     local describe=$(git describe --tags)
     local latest_tag=$(git describe --tags --abbrev=0)
