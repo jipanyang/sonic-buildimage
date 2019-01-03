@@ -62,3 +62,7 @@
 [submodule "src/redis-dump-load"]
 	path = src/redis-dump-load
 	url = https://github.com/p/redis-dump-load.git
+[submodule "src/sonic-quagga"]
+	path = src/sonic-quagga
+	url = git@github.com:Azure/sonic-quagga.git
+	branch = debian/0.99.24.1
